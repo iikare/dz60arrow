@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 #define _01_BASE 0
 #define _02_MODIFIER 1
