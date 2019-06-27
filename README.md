@@ -2,7 +2,7 @@
 Custom 60% layout for DZ60 PCB with inbuilt arrow keys, ditching RAlt, Menu, RWin, and potentially RShift in a later revision.
 
 # Layout
-(layout.png)
+![](layout.png)
 
 # Build
 To build with QMK, copy `/keyboards` into QMK directory, then run
