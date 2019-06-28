@@ -1,19 +1,16 @@
 #include "keymap.h"
 
-#define BASE_COLOR 20, 255, 255
-#define MODIFIER_COLOR 255, 255, 255
-
 static bool RUNFLAG = true;
 static uint16_t RUNDELAY;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
-	switch (keycode){
+	switch(keycode){
 		case _01_MACRO:
-				tap_code16(C(X_F7));
+			tap_code16(C(KC_F7));
 			break;
 	}
 	return true;
-};
+}
 
 uint32_t layer_state_set_user(uint32_t state){
 	switch (biton32(state)){
@@ -23,17 +20,22 @@ uint32_t layer_state_set_user(uint32_t state){
 		case _01_BASE:
 			rgblight_sethsv_noeeprom(BASE_COLOR); //#A02C35
 			break;
-
 	}
 	return state;
 }
 
 void matrix_init_user(void){
-	PreInitRGB();
+	RUNDELAY = timer_read();
 }
 
 void matrix_scan_user(void){
-	InitRGB();
+	if (RUNFLAG && timer_elapsed(RUNDELAY) > INIT_DELAY){
+		RUNFLAG = false;
+
+		rgblight_sethsv_noeeprom(BASE_COLOR);
+		rgblight_mode_noeeprom(1);
+		rgblight_enable_noeeprom();
+	}
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, 
 		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, 
 		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, KC_SLSH, 
-		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, _01_MACRO, TT(1), KC_LEFT, KC_DOWN, KC_RGHT),
+		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, _01_MACRO, MO(1), KC_LEFT, KC_DOWN, KC_RGHT),
 
 	[_02_MODIFIER] = LAYOUT_dz60arrow(
 		KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_DEL, 
@@ -53,17 +55,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
 };
-
-void PreInitRGB(void){
-	RUNDELAY = timer_read();
-}
-
-void InitRGB(void){
-	if (RUNFLAG && timer_elapsed(RUNDELAY) > INIT_DELAY){
-		RUNFLAG = false;
-
-		rgblight_sethsv_noeeprom(BASE_COLOR);
-		rgblight_mode_noeeprom(1);
-		rgblight_enable_noeeprom();
-	}
-}
