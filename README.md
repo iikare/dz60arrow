@@ -2,9 +2,7 @@
 Custom 60% layout for DZ60 PCB with inbuilt arrow keys, ditching RAlt, Menu, RWin, and potentially RShift in a later revision.  Layer-based underglow control and a macro key are currently implemented.
 
 # To Be Implemented
-	Custom keycode-based underglow manipulation.
-	Further macro keys.
-	Fix need to cycle layer on initialize.
+	Tap-Dance for layer cycling.
 
 # Layout
 ![](layout.png)
