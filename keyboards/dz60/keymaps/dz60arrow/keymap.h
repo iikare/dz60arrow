@@ -12,4 +12,5 @@
 
 enum custom_keycodes{
     _01_MACRO = SAFE_RANGE,
+    _02_MACRO
 };
