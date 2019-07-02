@@ -11,6 +11,10 @@
 #define MODIFIER_COLOR 255, 255, 212
 
 enum custom_keycodes{
-    _01_MACRO = SAFE_RANGE,
-    _02_MACRO
+	_01_MACRO = SAFE_RANGE,
+	_02_MACRO,
+	_03_MACRO,
+	_04_MACRO,
+	_05_MACRO,
+	_06_MACRO
 };

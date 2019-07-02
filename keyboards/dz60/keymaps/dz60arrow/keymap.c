@@ -11,6 +11,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 		case _02_MACRO:
 			tap_code16(G(KC_L));
 			break;
+		case _03_MACRO:
+			tap_code16(A(KC_LEFT));
+			break;
+		case _04_MACRO:
+			tap_code16(A(KC_UP));
+			break;
+		case _05_MACRO:
+			tap_code16(A(KC_DOWN));
+			break;
+		case _06_MACRO:
+			tap_code16(A(KC_RGHT));
+			break;
 	}
 	return true;
 }
@@ -52,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_02_MODIFIER] = LAYOUT_dz60arrow(
 		KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_DEL, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_1, KC_2, KC_3, KC_TRNS, KC_VOLD, KC_VOLU, RESET, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_4, KC_5, KC_6, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_7, KC_8, KC_9, KC_DEL, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_PGUP, KC_VOLD, KC_VOLU, RESET, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PGDN, KC_HOME, KC_END, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_DEL, _04_MACRO, KC_INS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, _03_MACRO, _05_MACRO, _06_MACRO),
 
 };
