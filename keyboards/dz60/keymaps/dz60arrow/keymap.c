@@ -1,27 +1,61 @@
 #include "keymap.h"
 
 static bool RUNFLAG = true;
+static bool SFLAG = false;
 static uint16_t RUNDELAY;
+static uint8_t KFLAG[6] = { 1 };
+
+uint8_t GenerateMacro(uint8_t KeyID, uint8_t mod, uint8_t StateCheck){
+	if(StateCheck){
+		if(mod == 0){
+			register_code16(KeyID);
+			unregister_code16(KeyID);
+		}
+		if(mod == 1){
+			register_code16(KC_LALT);
+			register_code16(KeyID);
+			unregister_code16(KeyID);
+			unregister_code16(KC_LALT);
+		}
+		if(mod == 2){
+			register_code16(KC_LGUI);
+			register_code16(KeyID);
+			unregister_code16(KeyID);
+			unregister_code16(KC_LGUI);
+		}
+		return 0;
+	}
+	return 1;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+	if(SFLAG && record->event.pressed && keycode != KC_SPC){
+		tap_code16(KC_CAPS);
+	}
+
 	switch(keycode){
 		case _01_MACRO:
-			tap_code16(KC_F7);
+			KFLAG[0] = GenerateMacro(KC_F7, 0, KFLAG[0]);
 			break;
 		case _02_MACRO:
-			tap_code16(G(KC_L));
+			KFLAG[1] = GenerateMacro(KC_L, 2, KFLAG[1]);
 			break;
 		case _03_MACRO:
-			tap_code16(A(KC_LEFT));
+			KFLAG[2] = GenerateMacro(KC_LEFT, 1, KFLAG[2]);
 			break;
 		case _04_MACRO:
-			tap_code16(A(KC_UP));
+			KFLAG[3] = GenerateMacro(KC_UP, 1, KFLAG[3]);
 			break;
 		case _05_MACRO:
-			tap_code16(A(KC_DOWN));
+			KFLAG[4] = GenerateMacro(KC_DOWN, 1, KFLAG[4]);
 			break;
 		case _06_MACRO:
-			tap_code16(A(KC_RGHT));
+			KFLAG[5] = GenerateMacro(KC_RGHT, 1, KFLAG[5]);
+			break;
+		case STEXT:
+			if(record->event.pressed){
+				SFLAG = !SFLAG;
+			}
 			break;
 	}
 	return true;
@@ -64,9 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_02_MODIFIER] = LAYOUT_dz60arrow(
 		KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_DEL, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_PGUP, KC_VOLD, KC_VOLU, RESET, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PGDN, KC_HOME, KC_END, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_TRNS, _04_MACRO, KC_INS, 
+		RESET, STEXT  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_PGUP, KC_VOLD, KC_VOLU, KC_TRNS, 
+		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PGDN, KC_HOME, KC_END, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_0, _04_MACRO, KC_INS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, _03_MACRO, _05_MACRO, _06_MACRO),
 
 };

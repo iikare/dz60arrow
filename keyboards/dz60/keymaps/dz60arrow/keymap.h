@@ -16,5 +16,6 @@ enum custom_keycodes{
 	_03_MACRO,
 	_04_MACRO,
 	_05_MACRO,
-	_06_MACRO
+	_06_MACRO,
+	STEXT
 };
