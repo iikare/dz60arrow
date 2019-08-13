@@ -28,8 +28,44 @@ uint8_t GenerateMacro(uint8_t KeyID, uint8_t mod, uint8_t StateCheck){
 	return 1;
 }
 
+void STEXTHandler(uint16_t key){
+	static int CUCount = 0;
+	static int CLCount = 0;
+	static bool CapState = true;
+
+	//if(CUCount < 3 || CLCount < 3){
+		if(CapState){
+			if(key == (KC_A || KC_C || KC_E || KC_F || KC_N || KC_Q || KC_R || KC_S || KC_U || KC_V || KC_Y || KC_X || KC_Z)){
+				CLCount = 0;
+				tap_code16(KC_CAPS);
+				CapState = !CapState;
+			}
+			if(key == (KC_B || KC_D || KC_G || KC_H || KC_I || KC_J || KC_K || KC_L || KC_M || KC_O || KC_P || KC_T || KC_W)){
+				CUCount++;
+			}
+		}
+		else{
+			if(key == (KC_B || KC_D || KC_G || KC_H || KC_I || KC_J || KC_K || KC_L || KC_M || KC_O || KC_P || KC_T || KC_W)){
+				CUCount = 0;
+				tap_code16(KC_CAPS);
+				CapState = !CapState;
+			}
+			if(key == (KC_A || KC_C || KC_E || KC_F || KC_N || KC_Q || KC_R || KC_S || KC_U || KC_V || KC_Y || KC_X || KC_Z)){
+				CLCount++;
+			}
+		}
+	//}
+	//else{
+	//	CLCount = 0;
+	//	CUCount = 0;
+	//	tap_code16(KC_CAPS);
+	//	CapState = !CapState;
+	//}
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
 	if(SFLAG && record->event.pressed && keycode != KC_SPC){
+		//STEXTHandler(keycode);
 		tap_code16(KC_CAPS);
 	}
 
