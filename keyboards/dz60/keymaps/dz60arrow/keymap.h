@@ -2,6 +2,7 @@
 
 #define _01_BASE 0
 #define _02_MODIFIER 1
+#define _03_SPECIAL 2
 #define TAPPING_TOGGLE 2
 #define FORCE_NKRO
 #define INIT_DELAY 10
