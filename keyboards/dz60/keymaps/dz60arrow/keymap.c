@@ -108,6 +108,8 @@ uint32_t layer_state_set_user(uint32_t state){
 		case _01_BASE:
 			rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR); //#A02C35
 			break;
+    default:
+			rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR); //#A02C35
 	}
 	return state;
 }
