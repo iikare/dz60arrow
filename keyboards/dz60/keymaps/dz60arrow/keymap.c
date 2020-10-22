@@ -106,10 +106,10 @@ uint32_t layer_state_set_user(uint32_t state){
 			rgblight_sethsv_noeeprom(MODIFIER_COLOR); //#FC4E36
 			break;
 		case _01_BASE:
-			rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR); //#A02C35
+			rgblight_sethsv_noeeprom(BASE_COLOR); //#A02C35
 			break;
     default:
-			rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR); //#A02C35
+			rgblight_sethsv_noeeprom(BASE_COLOR); //#A02C35
 	}
 	return state;
 }
@@ -122,7 +122,7 @@ void matrix_scan_user(void){
 	if (RUNFLAG && timer_elapsed(RUNDELAY) > INIT_DELAY){
 		RUNFLAG = false;
 
-		rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR);
+		rgblight_sethsv_noeeprom(BASE_COLOR);
 		rgblight_mode_noeeprom(1);
 		rgblight_enable_noeeprom();
 	}
