@@ -100,13 +100,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 uint32_t layer_state_set_user(uint32_t state){
 	switch (biton32(state)){
     case _03_SPECIAL:
-			rgblight_sethsv_noeeprom(BASE_COLOR); //#A02C35
+			rgblight_sethsv_noeeprom(MODIFIER_COLOR); //#A02C35
       break;
 		case _02_MODIFIER:
 			rgblight_sethsv_noeeprom(MODIFIER_COLOR); //#FC4E36
 			break;
 		case _01_BASE:
-			rgblight_sethsv_noeeprom(BASE_COLOR); //#A02C35
+			rgblight_sethsv_noeeprom(HSV_ORANGE);//BASE_COLOR); //#A02C35
 			break;
 	}
 	return state;
